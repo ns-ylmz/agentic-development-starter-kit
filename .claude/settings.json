@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.ai/hooks/guard-git.sh",
+            "args": []
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*__pull_request_create",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.ai/hooks/guard-pr-body.sh",
+            "args": []
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.ai/hooks/post-edit-verify.sh",
+            "args": []
+          }
+        ]
+      }
+    ]
+  }
+}
