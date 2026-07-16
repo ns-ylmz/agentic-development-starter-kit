@@ -146,7 +146,7 @@ Additional safeguards:
 - Do not commit unrelated user changes.
 - Do not force-push. `guard-git.sh` denies it unconditionally: a hook sees only the command, never the conversation, so it cannot tell an explicitly requested rewrite from an unprompted one. This is deliberate — force-push is the one operation whose blast radius justifies a human in the loop. When a history rewrite is genuinely needed, the agent prepares the branch locally, verifies it, and reports the exact command for the user to run themselves. Do not work around the guard by wrapping the push in a script or alias; that defeats the guard rather than satisfying it.
 - Do not commit secrets, generated output, or local environment files.
-- After a pull request is merged, the merged local task branch may be deleted. With squash-and-merge, ancestry checks (`git branch --merged`) are unreliable — the reliable signal is the PR title appearing verbatim as a commit message in `main`'s history. Remote task branches should be removed automatically through the repository setting `Automatically delete head branches`.
+- After a pull request is merged, the merged local task branch may be deleted. With squash-and-merge, ancestry checks (`git branch --merged`) are unreliable — the reliable signal is the PR title appearing verbatim as a commit message in `main`'s history, since squash-merge uses the PR title as the commit message by definition. For the full detection-and-cleanup procedure, see the `cleanup-merged-branches` skill. Remote task branches should be removed automatically through the repository setting `Automatically delete head branches`.
 - Never delete `main`, active branches, unmerged branches, or intentionally retained backup branches.
 
 ### Addressing PR Review Feedback

@@ -28,11 +28,13 @@ CLAUDE.md                 # Lean entrypoint: principles, layer map, mechanism wi
 │   ├── guard-git.sh              # PreToolUse/Bash — blocks main/master commits, force-push, staged secrets
 │   ├── guard-pr-body.sh          # PreToolUse/Bash + pull_request_create — enforces PR template sections (gh CLI and MCP)
 │   ├── guard-domain-boundary.sh  # PreToolUse/Edit|Write — blocks implementer subagents from the other domain (map-driven)
-│   └── post-edit-verify.sh       # PostToolUse/Write|Edit — surfaces eslint output for the touched file
+│   ├── post-edit-verify.sh       # PostToolUse/Write|Edit — surfaces eslint output for the touched file
+│   ├── suggest-branch-cleanup.sh # PostToolUse/Bash — non-blocking: lists local branches after returning to main
+│   └── remind-return-to-main.sh  # PostToolUse/Bash + pull_request_create — non-blocking: nudges back to main after a PR
 ├── agents/               # architecture-reviewer (read-only), backend-/frontend-implementer (hard-bounded)
 ├── rules/                # Path-scoped auto-loading of boundary/testing docs
 └── skills/               # implement, refactor, bugfix, add-tests, update-docs,
-                          # execute-task, address-pr-feedback,
+                          # execute-task, address-pr-feedback, cleanup-merged-branches,
                           # setup-project (single-use adaptation wizard)
 .github/
 ├── pull_request_template.md      # guard-pr-body.sh reads its ## sections dynamically
@@ -77,7 +79,8 @@ The fastest path: copy everything in, then run the `setup-project` skill in Clau
 - **Team hygiene (husky + commitlint + prettier)** — conventional commits and consistent formatting enforced at commit time, for humans and agents alike.
 - **Server-side enforcement (CI)** — local hooks guide the session but can be bypassed; `.github/workflows/ci.yml` re-checks lint/typecheck/test/build, commit messages, and the PR body template on every PR.
 - **Bounded task plans (`planning/`)** — a template and lifecycle for the task files that `execute-task` and the Task-File Execution Prompts treat as authoritative.
-- **Personal-vs-team separation** — personal habits go in gitignored `*.local.sh` hooks + `.claude/settings.local.json`, never in shared policy.
+- **Non-blocking nudges** — not every hook is a gate: eslint feedback after each edit, a branch list when you return to `main`, and a return-to-`main` reminder after opening a PR. They back the recommended habits in `.ai/task-workflow.md` without failing a tool call. `cleanup-merged-branches` handles the pruning itself, since squash-merge makes `git branch --merged` unreliable.
+- **A local escape hatch** — `.claude/settings.local.json` is gitignored and per-user, for machine-specific settings that must not become project policy. Nothing lives there by default: every mechanism above is deliberately shared, so the team and the agent read the same rules.
 
 ## Notes
 
