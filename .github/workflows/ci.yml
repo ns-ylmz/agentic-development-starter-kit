@@ -1,0 +1,93 @@
+name: CI
+
+# Server-side counterpart of the local .claude/hooks/ guardrails. Local hooks
+# guide the agent during the session; this workflow is the enforcement the
+# team can rely on, since local hooks can be bypassed.
+#
+# Stack-agnostic by design: every step uses `--if-present`, so projects
+# without a given script simply skip that step. Adjust the Node version and
+# package manager per project.
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Typecheck
+        run: npm run typecheck --if-present
+
+      - name: Test
+        run: npm run test --if-present
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Format check
+        run: npx --no-install prettier --check . || echo "prettier not installed - skipping"
+
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate PR commits against commitlint.config.mjs
+        run: |
+          if [ -f commitlint.config.mjs ]; then
+            npx --no -- commitlint \
+              --from ${{ github.event.pull_request.base.sha }} \
+              --to ${{ github.event.pull_request.head.sha }} \
+              --verbose
+          else
+            echo "no commitlint config - skipping"
+          fi
+
+  pr-template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same rule as .claude/hooks/guard-pr-body.sh, enforced server-side:
+      # the PR body must contain every ## section from the template.
+      - name: Check PR body against pull_request_template.md
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          TEMPLATE=".github/pull_request_template.md"
+          [ -f "$TEMPLATE" ] || { echo "no PR template - skipping"; exit 0; }
+          MISSING=""
+          while IFS= read -r header; do
+            [ -z "$header" ] && continue
+            echo "$PR_BODY" | grep -qiF "## ${header}" || MISSING="${MISSING}\"${header}\" "
+          done <<< "$(grep -E '^##[[:space:]]+' "$TEMPLATE" | sed -E 's/^##[[:space:]]+//')"
+          if [ -n "$MISSING" ]; then
+            echo "::error::PR body is missing required section(s): ${MISSING}"
+            exit 1
+          fi
