@@ -1,8 +1,8 @@
 #!/bin/bash
-# Destination in a new project: .ai/hooks/guard-git.sh
+# Destination in a new project: .claude/hooks/guard-git.sh
 # Wired from: .claude/settings.json (PreToolUse, matcher: "Bash")
 #
-# Default git guardrails, tool-agnostic (plain bash, no Claude-specific logic):
+# Default git guardrails (plain bash + jq):
 #   - no direct commits to main/master
 #   - no force-push
 #   - no committing secret/env files
