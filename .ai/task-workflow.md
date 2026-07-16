@@ -115,8 +115,8 @@ Repository-approved commit types, synchronized with `commitlint.config.mjs`, are
 
 ```txt
 build
-ci/cd
 chore
+ci
 docs
 feat
 fix
