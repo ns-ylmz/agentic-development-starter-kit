@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This repository is a working agreement for agentic development with Claude Code — a coding-standard contract for individuals and teams. The technology stack is intentionally open: TypeScript is the baseline standard, but frontend framework, backend framework, database, and testing tools are project choices. The repository shape defaults to a monorepo but the layers below carry over to any shape.
+This repository is a working agreement for agentic development with Claude Code — a coding-standard contract for individuals and teams. TypeScript is a precondition, not a suggestion: the root `package.json` pins the TypeScript/ESLint/Prettier/commitlint baseline that the commit hooks, the post-edit lint feedback, and CI all depend on. Above that line the stack stays open — frontend framework, backend framework, database, and testing tools are project choices. The repository shape defaults to a monorepo but the layers below carry over to any shape.
 
 This file stays lean on purpose. Detailed knowledge lives in `.ai/` (reference documents) and mechanisms live in `.claude/` (hooks, skills, rules, subagents). When adding guidance, put the content in `.ai/` and reference it — don't grow this file.
 

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Starter kit and working agreement for agentic development with Claude Code",
+  "description": "Enforced working agreement for agentic development with Claude Code: hooks, skills, subagents, and a pinned TypeScript tooling baseline. Framework-agnostic above the TypeScript line.",
   "license": "MIT",
   "engines": {
     "node": ">=22.22.1"
