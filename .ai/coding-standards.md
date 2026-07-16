@@ -59,19 +59,19 @@ Inspect neighboring files before introducing a filename. Preserve the establishe
 
 Default patterns (adjust per project, then keep this table synchronized):
 
-| File responsibility                  | Naming convention                                           | Examples                                        |
-| ------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------- |
-| UI components and providers (framework of choice, e.g. React) | `PascalCase.tsx`                                  | `DetailView.tsx`, `ToastProvider.tsx`           |
-| UI hooks/composables                 | `camelCase.ts` with the ecosystem prefix (e.g. `use`)       | `useAuthMutations.ts`                           |
-| Backend TypeScript files             | `kebab-case` with a responsibility suffix                   | `auth-token.service.ts`, `users.controller.ts`  |
-| Schemas and DTOs                     | `kebab-case` with a responsibility suffix                   | `user.schema.ts`, `login.dto.ts`                |
-| Shared contract files                | `kebab-case` with a role suffix where useful                | `auth-response.types.ts`                        |
-| Unit tests                           | source naming plus `.spec.ts` or `.test.tsx`                | `users.service.spec.ts`, `DetailView.test.tsx`  |
-| Backend integration tests            | `<domain>.<capability>.int-spec.ts`                         | `users.create.int-spec.ts`                      |
-| Page route directories               | `kebab-case`, with `index.tsx` as the route entry           | `forgot-password/index.tsx`                     |
-| Barrel files                         | `index.ts`                                                  | `features/auth/index.ts`                        |
-| Markdown docs                        | `kebab-case.md`; preserve numeric prefixes for ordered docs | `10-platform-architecture.md`                   |
-| Config files                         | ecosystem-required names, with an explicit module extension | `eslint.config.mjs`, `vitest.config.ts`         |
+| File responsibility                                           | Naming convention                                           | Examples                                       |
+| ------------------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------- |
+| UI components and providers (framework of choice, e.g. React) | `PascalCase.tsx`                                            | `DetailView.tsx`, `ToastProvider.tsx`          |
+| UI hooks/composables                                          | `camelCase.ts` with the ecosystem prefix (e.g. `use`)       | `useAuthMutations.ts`                          |
+| Backend TypeScript files                                      | `kebab-case` with a responsibility suffix                   | `auth-token.service.ts`, `users.controller.ts` |
+| Schemas and DTOs                                              | `kebab-case` with a responsibility suffix                   | `user.schema.ts`, `login.dto.ts`               |
+| Shared contract files                                         | `kebab-case` with a role suffix where useful                | `auth-response.types.ts`                       |
+| Unit tests                                                    | source naming plus `.spec.ts` or `.test.tsx`                | `users.service.spec.ts`, `DetailView.test.tsx` |
+| Backend integration tests                                     | `<domain>.<capability>.int-spec.ts`                         | `users.create.int-spec.ts`                     |
+| Page route directories                                        | `kebab-case`, with `index.tsx` as the route entry           | `forgot-password/index.tsx`                    |
+| Barrel files                                                  | `index.ts`                                                  | `features/auth/index.ts`                       |
+| Markdown docs                                                 | `kebab-case.md`; preserve numeric prefixes for ordered docs | `10-platform-architecture.md`                  |
+| Config files                                                  | ecosystem-required names, with an explicit module extension | `eslint.config.mjs`, `vitest.config.ts`        |
 
 ---
 

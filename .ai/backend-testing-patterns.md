@@ -46,9 +46,9 @@ Examples: authentication flows, refresh rotation, password reset behavior.
 
 When modifying:
 
-| Area                       | Expected Verification                   |
-| -------------------------- | --------------------------------------- |
-| service logic              | relevant unit tests                     |
-| orchestration flows        | integration tests                       |
-| runtime contracts          | shared package tests                    |
-| infrastructure integration | integration tests + runtime validation  |
+| Area                       | Expected Verification                  |
+| -------------------------- | -------------------------------------- |
+| service logic              | relevant unit tests                    |
+| orchestration flows        | integration tests                      |
+| runtime contracts          | shared package tests                   |
+| infrastructure integration | integration tests + runtime validation |
