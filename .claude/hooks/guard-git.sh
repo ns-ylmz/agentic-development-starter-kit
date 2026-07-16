@@ -42,7 +42,7 @@ fi
 # 2. No force-push.
 if echo "$COMMAND" | grep -qE '(^|[;&|]\s*)git\s+push\b' \
    && echo "$COMMAND" | grep -qE -- '(--force\b|--force-with-lease\b|\s-f\b)'; then
-  deny "Force-push is not allowed unless explicitly requested. Ask before running this."
+  deny "Force-push is blocked, including when the user asked for it: this hook sees only the command, not the conversation. Prepare and verify the branch locally, then give the user the exact command to run themselves. Do not wrap the push in a script or alias to get around this."
 fi
 
 # 3. No committing secret/env files.
