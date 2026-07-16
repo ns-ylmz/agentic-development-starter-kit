@@ -1,0 +1,9 @@
+npx --no -- commitlint --edit $1 || {
+  echo "\n❌ Invalid commit message!"
+  echo "👉 Follow conventional commits format:"
+  echo "   feat: add new feature"
+  echo "   fix: bug fix"
+  echo "   chore: maintenance"
+  echo "\n📚 https://www.conventionalcommits.org\n"
+  exit 1
+}

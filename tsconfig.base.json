@@ -1,0 +1,24 @@
+{
+  // Strict TypeScript base. Every workspace extends this file.
+  //
+  // Deliberately NO "paths" here: path aliases are defined per workspace, in
+  // that workspace's own tsconfig, and may only resolve into its own src/.
+  // Cross-workspace imports go through the shared package's public
+  // entrypoint as a declared workspace dependency - never via a root-level
+  // alias into another workspace's source tree.
+  // See .ai/architecture-rules.md -> Module Resolution & Alias Rules.
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  }
+}

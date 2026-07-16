@@ -1,1 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Coverage
+coverage/
+
+# OS
 .DS_Store
+
+# Husky internals
+.husky/_
+
+# ESLint
+.eslintcache
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Personal agent habits (not shared team/project policy) — kept in-repo,
+# wired via .claude/settings.local.json instead of the shared
+# .claude/settings.json. See CLAUDE.md -> Claude Code Mechanisms.
+.claude/settings.local.json
+.claude/hooks/*.local.sh
