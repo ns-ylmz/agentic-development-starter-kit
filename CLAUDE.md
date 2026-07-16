@@ -1,0 +1,29 @@
+# CLAUDE.md
+
+This repository is a working agreement for agentic development with Claude Code — a coding-standard contract for individuals and teams. The technology stack is intentionally open: TypeScript is the baseline standard, but frontend framework, backend framework, database, and testing tools are project choices. The repository shape defaults to a monorepo but the layers below carry over to any shape.
+
+This file stays lean on purpose. Detailed knowledge lives in `.ai/` (reference documents) and mechanisms live in `.claude/` (hooks, skills, rules, subagents). When adding guidance, put the content in `.ai/` and reference it — don't grow this file.
+
+## Core Principles
+
+Prioritize: small and bounded changes, explicit architectural boundaries, deterministic runtime behavior, reusable implementation patterns, synchronized runtime contracts.
+
+## Primary References
+
+Before making any non-trivial change, read `README.md` and `.ai/task-workflow.md`. This applies whether or not the request uses one of the wrapped prompts in `.ai/prompt-templates.md` — a plain, ad-hoc request ("fix this bug", "add this field") still goes through the task lifecycle in `.ai/task-workflow.md` (scope identification, constraint validation, verification, git workflow). Then load only the task-relevant documentation: see `.ai/README.md → Context Loading Strategy`.
+
+## Layer Map
+
+- `.ai/` — reference documents: task workflow, prompt templates, architecture/coding/testing/boundary rules. The canonical knowledge layer; everything else points here. Entry: `.ai/README.md`.
+- `.claude/` — Claude Code mechanisms: hooks (enforced policy), skills, path-scoped rules, subagents.
+- `docs/` — architecture reasoning, `docs/decisions/` ADRs, `docs/06-repo-settings.md` server-side settings.
+- `planning/` — bounded task plans (template + active/archive lifecycle).
+
+## Claude Code Mechanisms
+
+- **Hooks** (`.claude/settings.json` → `.claude/hooks/*.sh`): `PreToolUse` on `Bash` runs `guard-git.sh` — blocks commits on `main`/`master`, force-push, and staged secret/env files. `PreToolUse` on `Bash` also runs `guard-pr-body.sh` — blocks PR creation unless the body follows `.github/pull_request_template.md` (headers are read dynamically from that file, not hardcoded); it recognizes `gh pr create` directly (checking `--body-file` contents or the raw command text for an inline/heredoc body) and the same script also matches `mcp__.*__pull_request_create` for git MCP servers. `PostToolUse` on `Write|Edit` runs `post-edit-verify.sh` — surfaces eslint output for the file just touched. `PreToolUse` on `Edit|Write|MultiEdit` runs `guard-domain-boundary.sh` — when the active subagent is listed in the script's boundary map (default: `backend-implementer`, `frontend-implementer`), blocks it from editing the other domain's files. The map is a plain table at the top of the script; edit it per project.
+- **Skills** (`.claude/skills/*/SKILL.md`): `implement`, `refactor`, `add-tests`, `update-docs`, `bugfix`, `execute-task` — each wraps the matching section of `.ai/prompt-templates.md`. `address-pr-feedback` is the one exception: it wraps `.ai/task-workflow.md → Agentic Git Collaboration Workflow → Addressing PR Review Feedback` instead, since it's a git-collaboration procedure rather than a Context/Task/Constraints implementation template. `setup-project` is single-use: it adapts this starter kit to a freshly created project and deletes itself afterwards. Architecture review has no skill on purpose: the `architecture-reviewer` subagent is the single entry point, since it is the variant with enforced read-only access.
+- **Rules** (`.claude/rules/*.md`): path-scoped auto-loading, one rule per domain. `backend.md` (`apps/backend/**`) loads the backend boundary and testing docs; `frontend.md` (`apps/frontend/**`) the frontend equivalents; `shared.md` (`packages/shared/**`) the shared-package boundaries. Adjust the `paths` globs to the project's actual layout (single-app projects can point `src/**` at the one relevant side and delete the rest).
+- **Subagents** (`.claude/agents/*.md`): `backend-implementer` and `frontend-implementer` mirror the implementation prompt template, but run in their own isolated context and are hard-blocked by `guard-domain-boundary.sh` from touching the other domain's directory — a stronger boundary than the skill's prompt-only guidance. `architecture-reviewer` is enforced a different way: its `tools` frontmatter allowlists only `Read, Grep, Glob, Bash`, so it has no Edit/Write/MultiEdit access at all, not just an instruction not to use it. Delegate to these when you want the boundary enforced instead of just followed. Single-app projects delete the implementer subagent that has no domain.
+- **Personal-only mechanisms**: personal git habits and workflow reminders are not project policy — they stay physically in the repo but are gitignored, so they're never shared with the team. Hook scripts use a `*.local.sh` suffix under `.claude/hooks/` and are wired through `.claude/settings.local.json` (gitignored, sits alongside the shared `.claude/settings.json`) rather than the shared settings file. Personal skills live at their normal `.claude/skills/<name>/` path but get their own gitignore entry. `guard-git.sh`, `guard-pr-body.sh`, `post-edit-verify.sh`, and `guard-domain-boundary.sh` remain the enforced, shared project policy in `.claude/settings.json`.
+- **Plugins, MCP servers**: not configured yet.
