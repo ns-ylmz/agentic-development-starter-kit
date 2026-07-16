@@ -42,6 +42,7 @@ planning/                 # Bounded task plans: templates/task-plan.md, active/,
 docs/                     # Architecture doc skeletons (01-… numbered), repo-settings
 │                         # checklist, decisions/ (ADRs) — the layer .ai/ references
 .husky/                   # pre-commit (lint-staged), commit-msg (commitlint)
+package.json              # Pinned dev tooling + lint-staged block; workspaces default to apps/*, packages/*
 commitlint.config.mjs     # Conventional commit types (synced with .ai/task-workflow.md)
 eslint.config.mjs         # Framework-free flat-config base (TS + prettier); workspaces extend it
 tsconfig.base.json        # Strict TS base — deliberately NO root path aliases (see alias rules)
@@ -53,38 +54,18 @@ tsconfig.base.json        # Strict TS base — deliberately NO root path aliases
 
 The fastest path: copy everything in, then run the `setup-project` skill in Claude Code — it walks through every step below interactively and deletes itself when done. Manually:
 
-1. Copy the contents of this repo into the target project (or start the project from this repo). `chmod +x .claude/hooks/*.sh .husky/*`.
+1. Copy the contents of this repo into the target project (or start the project from this repo). `chmod +x .claude/hooks/*.sh .husky/*`, then run `npm install` — the `prepare` script activates husky, so the commit hooks start working immediately.
 2. Merge `.claude/settings.json` if the target already has one.
 3. Edit `.github/pull_request_template.md`'s `##` sections to the project's conventions — `guard-pr-body.sh` reads whatever headers are present.
 4. Adjust the project-shape parts:
    - **Monorepo**: keep everything. Update the boundary map at the top of `.claude/hooks/guard-domain-boundary.sh` and the `paths` globs in `.claude/rules/*.md` if the layout differs from `apps/backend`, `apps/frontend`, `packages/shared`.
    - **Frontend-only / backend-only**: delete the other side's `.ai/*-domain-boundaries.md` / `.ai/*-testing-patterns.md` files, the matching `.claude/rules/*` and implementer agent, and `.ai/shared-domain-boundaries.md`. `guard-domain-boundary.sh` no-ops harmlessly with no matching subagents.
 5. Fill in the project-specific blanks: state library choices in `.ai/frontend-domain-boundaries.md`, file-naming table adjustments in `.ai/coding-standards.md`, and architecture doc references once the project has a `docs/`.
-6. Wire the commit tooling in the root `package.json`:
-
-```jsonc
-{
-  "scripts": { "prepare": "husky" },
-  "lint-staged": {
-    "*.{ts,tsx,js}": ["eslint --fix", "prettier --write"],
-    "*.{json,md}": ["prettier --write"]
-  },
-  "devDependencies": {
-    "@commitlint/cli": "...",
-    "@commitlint/config-conventional": "...",
-    "@eslint/js": "...",
-    "eslint": "...",
-    "eslint-config-prettier": "...",
-    "eslint-plugin-prettier": "...",
-    "globals": "...",
-    "husky": "...",
-    "lint-staged": "...",
-    "prettier": "...",
-    "typescript": "...",
-    "typescript-eslint": "..."
-  }
-}
-```
+6. Adapt the root `package.json` — the commit tooling (`prepare: husky`, the lint-staged block, and every dev dependency) already ships wired and pinned, so this is only about making it yours:
+   - Set `name`, `version`, `description`, and `license` to the project's own.
+   - Adjust the `workspaces` globs if the layout differs from `apps/*` / `packages/*`, or drop the field entirely for a single-package project.
+   - Add the scripts the kit deliberately leaves out — `typecheck`, `test`, `build`. The kit ships no TypeScript source, so it defines only the scripts it can actually run (`lint`, `format`, `format:check`); CI skips the rest via `--if-present` until the project defines them. See `docs/04-tooling-conventions.md`.
+   - Leave the TypeScript major alone: it is pinned to 6.x because no `typescript-eslint` release supports TypeScript 7 yet. See `docs/decisions/0005-pin-typescript-6-until-typescript-eslint-supports-7.md`.
 
 7. Apply the server-side settings in `docs/06-repo-settings.md` when creating the GitHub repository (branch protection, squash-merge, auto-delete head branches) — the hooks assume them.
 

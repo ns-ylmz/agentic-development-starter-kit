@@ -6,8 +6,8 @@ export default {
       'always',
       [
         'build',
-        'ci/cd',
         'chore',
+        'ci',
         'docs',
         'feat',
         'fix',
