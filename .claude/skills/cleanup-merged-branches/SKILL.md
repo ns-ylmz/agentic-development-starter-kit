@@ -6,13 +6,23 @@ description: Use when asked to clean up, delete, or prune local git branches tha
 Follow `.ai/task-workflow.md → Agentic Git Collaboration Workflow` (local branch cleanup):
 
 1. List local branches other than `main`/`master`.
-2. Do NOT rely on `git branch --merged` or any local ancestry check. This kit assumes squash-merge (`docs/06-repo-settings.md`), and a squash-merged branch's commits never become ancestors of `main` — ancestry checks produce false negatives. In a project that merges with true merge commits instead, ancestry checks are valid and this whole procedure is unnecessary; confirm the merge strategy before applying it.
+2. Do NOT rely on `git branch --merged` or any local ancestry check. This kit assumes squash-merge (`docs/06-repo-settings.md`), and a squash-merged branch's commits never become ancestors of `main` — ancestry checks produce false negatives. The containment check in step 5 does not care which strategy was used, so there is no merge strategy to confirm first.
 3. Do NOT trust the git provider's `merged`/`state` API fields as the primary signal either. These have been observed to misreport `merged: false` for PRs that were demonstrably merged. Treat them as, at best, a secondary cross-check — never as the deciding signal.
-4. Primary detection method: find the pull request associated with each branch (search pull requests authored by the user, or look up a known PR number) to read its title, then check whether `git log --oneline main` contains a commit message matching that title exactly. Under squash-merge the provider uses the PR title as the squash commit message by definition, so a match is authoritative proof the branch's changes are in `main`, independent of any API field. The one case it doesn't hold is a commit message manually retitled at merge time — a deliberate, unusual action worth noticing rather than assuming.
-5. Only delete a local branch once its PR title is confirmed present in `main`'s commit log this way. If an API `merged`/`state` field disagrees with the title-match result, trust the title-match and note the discrepancy in your report. Use a safe delete (`git branch -d`) when git recognizes the merge on its own; otherwise use an explicit force delete (`git branch -D`), but only after the title-match confirmation from step 4 — never based on assumption, and never for a branch whose merge status couldn't be confirmed.
-6. Leave alone: `main`/`master`, any branch with no corresponding PR found, and any branch whose PR title cannot be found in `main`'s commit log (still open, closed without merging, or unconfirmed).
-7. Report exactly which branches were deleted and which were left alone, with the reason for each, including any API-field vs. title-match discrepancies noticed along the way.
+4. Do NOT decide on PR-title matching either. Squash-merge does use the PR title as the commit message, but that title is routinely edited on the way in: the provider appends ` (#N)`, and maintainers retitle at merge time. Both are ordinary actions, and either one breaks an exact match on a branch that was genuinely merged. Titles are useful for naming the PR in your report, never for deciding.
+5. Primary detection method: containment. The question is not whether some string matches, it is whether the branch still carries anything `main` lacks — ask git directly (requires git ≥ 2.38):
 
-Deleting a branch is irreversible from the user's point of view, so confirm before deleting anything that step 4 could not positively prove was merged. Reporting an unconfirmed branch and leaving it is always the correct outcome — never a failure.
+   ```sh
+   git merge-tree --write-tree main <branch>   # prints the merged tree OID
+   git rev-parse main^{tree}                   # main's own tree OID
+   ```
+
+   Equal OIDs mean merging the branch into `main` would change nothing: every change it carries is already there, so it is safe to delete. Differing OIDs, or a non-zero exit (conflict), mean it still carries unmerged content — leave it alone. This is authoritative regardless of merge strategy, of how far `main` has moved since the merge, and of any title editing. It writes objects only: no refs, index, or working tree are touched.
+
+6. Do NOT substitute `git diff main <branch>` for step 5. It proves containment only while empty, and it stops being empty as soon as `main` gains any unrelated commit — reporting a long-merged branch as unmerged.
+7. Only delete a local branch once step 5 confirms containment. `git branch -d` refuses squash-merged branches by design (their commits are not ancestors of `main`), so an explicit `git branch -D` is expected here — but only after that confirmation, never based on an API field, a title, or an assumption.
+8. Leave alone: `main`/`master`, any branch with no corresponding PR found, and any branch step 5 does not confirm as contained (still open, closed without merging, or carrying local work).
+9. Report exactly which branches were deleted and which were left alone, with the reason for each. Note any signal that disagreed with the containment result — an API field claiming `merged`, or a title that did or didn't match — since a disagreement usually means something happened at merge time worth knowing about.
+
+Deleting a branch is irreversible from the user's point of view, so confirm before deleting anything step 5 could not positively prove was contained. Reporting an unconfirmed branch and leaving it is always the correct outcome — never a failure.
 
 Do not restate this procedure elsewhere — `.ai/task-workflow.md` is the single source of truth, shared with any other agent tool used on this repo.
