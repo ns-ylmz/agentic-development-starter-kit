@@ -1,0 +1,67 @@
+# policy-manifest.txt
+#
+# The canonical Claude-policy files this starter kit owns and propagates to
+# downstream repos. This kit is the single upstream source of truth for these
+# paths: change them HERE first, then run `scripts/sync-policy.sh <repo>` to
+# open a reviewed sync PR in each downstream repo.
+#
+# Format: one repo-relative path per line. Blank lines and `#` comments ignored.
+#
+# RULE OF THUMB: a file belongs here only if it is meant to be byte-identical in
+# every repo (a generic mechanism or generic guidance). Anything a project
+# customizes (path maps, project-specific agents/rules, project docs) is
+# PROJECT-OWNED and must NOT be listed — see the excluded list at the bottom.
+
+# --- Generic workflow & standards docs (.ai) -------------------------------
+.ai/README.md
+.ai/architecture-rules.md
+.ai/backend-domain-boundaries.md
+.ai/backend-testing-patterns.md
+.ai/domain-boundaries.md
+.ai/frontend-testing-patterns.md
+.ai/implementation-patterns.md
+.ai/prompt-templates.md
+.ai/task-workflow.md
+.ai/testing-patterns.md
+
+# --- Generic mechanisms (.claude) ------------------------------------------
+.claude/agents/architecture-reviewer.md
+.claude/hooks/guard-git.sh
+.claude/hooks/guard-pr-body.sh
+.claude/hooks/post-edit-verify.sh
+.claude/hooks/remind-return-to-main.sh
+.claude/hooks/suggest-branch-cleanup.sh
+.claude/rules/shared.md
+
+# --- Generic skills ---------------------------------------------------------
+.claude/skills/add-tests/SKILL.md
+.claude/skills/address-pr-feedback/SKILL.md
+.claude/skills/bugfix/SKILL.md
+.claude/skills/cleanup-merged-branches/SKILL.md
+.claude/skills/execute-task/SKILL.md
+.claude/skills/implement/SKILL.md
+.claude/skills/refactor/SKILL.md
+.claude/skills/update-docs/SKILL.md
+
+# --- Sensitive: wires the hooks; review the diff carefully on each sync -----
+# settings.json is listed because a new canonical hook must also be wired here,
+# but a downstream may add project-specific hook entries. The PR review is the
+# safety net. Remove this line if a repo hand-manages its settings.json.
+.claude/settings.json
+
+# ===========================================================================
+# PROJECT-OWNED — intentionally NOT synced (documented here so the split is
+# explicit). These carry per-project content; overwriting them would break the
+# downstream repo:
+#
+#   .claude/hooks/guard-domain-boundary.sh   (project directory→domain map)
+#   .claude/agents/backend-implementer.md    (references the project's backend paths)
+#   .claude/agents/frontend-implementer.md   (references the project's frontend paths)
+#   .claude/rules/backend.md                 (project path scoping)
+#   .claude/rules/frontend.md                (project path scoping)
+#   .claude/rules/*.md                        (any project-specific path rules, e.g. ui.md)
+#   .ai/coding-standards.md                  (project examples/conventions)
+#   .ai/frontend-domain-boundaries.md        (project module ownership)
+#   .ai/shared-domain-boundaries.md          (project contract specifics)
+#   .claude/skills/setup-project/            (kit bootstrapping; not for generated repos)
+# ===========================================================================
