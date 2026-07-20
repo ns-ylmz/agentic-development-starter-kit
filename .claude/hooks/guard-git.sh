@@ -48,8 +48,11 @@ fi
 # 3. No committing secret/env files.
 if echo "$COMMAND" | grep -qE '(^|[;&|]\s*)git\s+commit\b'; then
   STAGED=$(git diff --cached --name-only 2>/dev/null || echo "")
-  if echo "$STAGED" | grep -qE '(^|/)\.env(\..*)?$|\.pem$|\.key$|(^|/)id_rsa$|(^|/)\.npmrc$'; then
-    MATCHES=$(echo "$STAGED" | grep -E '(^|/)\.env(\..*)?$|\.pem$|\.key$|(^|/)id_rsa$|(^|/)\.npmrc$' | tr '\n' ' ')
+  # Committed placeholder templates carry no secrets and are meant to be
+  # checked in (e.g. .env.example); exclude them before matching.
+  SECRET_CANDIDATES=$(echo "$STAGED" | grep -vE '(^|/)\.env\.(example|sample|template|defaults)$')
+  if echo "$SECRET_CANDIDATES" | grep -qE '(^|/)\.env(\..*)?$|\.pem$|\.key$|(^|/)id_rsa$|(^|/)\.npmrc$'; then
+    MATCHES=$(echo "$SECRET_CANDIDATES" | grep -E '(^|/)\.env(\..*)?$|\.pem$|\.key$|(^|/)id_rsa$|(^|/)\.npmrc$' | tr '\n' ' ')
     deny "Staged changes include a secret/env-looking file (${MATCHES}). Unstage it before committing."
   fi
 fi
