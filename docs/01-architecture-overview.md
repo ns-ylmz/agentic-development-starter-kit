@@ -8,7 +8,7 @@
 
 ## Workspaces & Ownership
 
-<!-- Map each workspace/app to its responsibility. Keep synchronized with .ai/domain-boundaries.md. -->
+<!-- Map each workspace/app to its responsibility. Keep synchronized with .ai/guidelines/architecture.md. -->
 
 ## High-Level Data Flow
 
@@ -16,4 +16,4 @@
 
 ## Runtime Contracts
 
-<!-- Where shared contracts live and how consumers depend on them. See .ai/architecture-rules.md -> Runtime Contract Rules. -->
+<!-- Where shared contracts live and how consumers depend on them. See .ai/guidelines/architecture.md -> Runtime Contract Rules. -->

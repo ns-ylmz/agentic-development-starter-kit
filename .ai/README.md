@@ -8,7 +8,7 @@ This directory defines the operational context for AI-assisted development insid
 
 The `.ai/` directory standardizes AI-assisted development workflows: architectural decisions, implementation constraints, and context-loading strategy, so task execution stays deterministic and maintainable.
 
-This layer exists to keep `AGENTS.md` lean: `AGENTS.md` stays a thin entrypoint, and the Agent mechanisms under `.agents/` (skills, rules, subagents, hook wiring) only reference these documents — they never restate them.
+This layer exists to keep `AGENTS.md` lean: `AGENTS.md` stays a thin entrypoint, and the Agent mechanisms under `.agents/` and `.claude/` (skills, rules, subagents, hook wiring) only reference these documents — they never restate them.
 
 ---
 
@@ -32,37 +32,22 @@ Use for: implementation workflow, task execution rules, coding constraints, test
 
 Agents should avoid loading unnecessary context. Use the smallest relevant context set for the current task.
 
-- **Architectural or cross-domain decisions**: `README.md` + `.ai/architecture-rules.md` + `.ai/domain-boundaries.md`
-- **Testing**: `.ai/testing-patterns.md` + the side-specific testing file
-- **Tooling/config**: the changed tool's own config plus `.ai/coding-standards.md → Module Format Rules`
-
----
-
-## Documentation Responsibilities
-
-Agents must update documentation when changing:
-
-- architectural boundaries
-- runtime contracts
-- workflow conventions
-- repository structure
-- testing strategy
-
-The repository treats documentation as part of the engineering surface.
+- **Architectural or cross-domain decisions**: `README.md` + `.ai/guidelines/architecture.md`
+- **Testing and Coding Rules**: `.ai/guidelines/standards.md`
+- **Workflow and Planning**: `.ai/guidelines/workflow.md`
 
 ---
 
 ## Guidance Ownership
 
-Keep reusable workflow guidance in its canonical layer. Avoid duplicating the same rule across layers — when a document needs guidance owned elsewhere, reference the canonical document instead of restating it.
+Keep reusable workflow guidance in its canonical layer. Avoid duplicating the same rule across layers.
 
-- `.ai/task-workflow.md` owns task lifecycle, decomposition, workflow boundaries, escalation, and review discipline.
-- `.ai/prompt-templates.md` owns prompt structure and context-loading patterns. Skill wrappers (`.agents/skills/*/SKILL.md`) only reference these templates by section; they don't restate them.
-- `.ai/coding-standards.md` owns formatting, naming, implementation, and markdown conventions.
-- `.ai/implementation-patterns.md` owns reusable architectural structure and execution patterns.
-- `planning/` owns bounded task plans, the task-plan template, and the archive lifecycle — see `planning/README.md`.
-- `docs/` owns architecture reasoning and reference documentation; `docs/decisions/` owns ADRs — settled decisions are read from there, not re-litigated. `docs/06-repo-settings.md` owns the server-side repo settings the hooks assume.
-- `.ai/hooks/` owns the implementation of enforced project policy (git guardrails, post-edit verification, PR body template enforcement, domain-boundary enforcement), wired through `.agents/hooks.json`. Personal habits that aren't project policy use a `*.local.sh` suffix, are gitignored, and are wired through `.agents/hooks.local.json` instead — see `AGENTS.md → Agent Mechanisms`.
+- `.ai/guidelines/workflow.md` owns task lifecycle, decomposition, workflow boundaries, and review discipline.
+- `.ai/guidelines/prompt-templates.md` owns prompt structure and context-loading patterns. Skill wrappers only reference these templates by section.
+- `.ai/guidelines/standards.md` owns formatting, naming, testing patterns, and implementation expectations.
+- `.ai/guidelines/architecture.md` owns domain boundaries, reusable capabilities, and architectural invariants.
+- `planning/` owns bounded task plans, the task-plan template, and the archive lifecycle.
+- `.ai/hooks/` owns the implementation of enforced project policy (git guardrails, PR body template enforcement).
 
 ---
 
@@ -71,21 +56,16 @@ Keep reusable workflow guidance in its canonical layer. Avoid duplicating the sa
 ```txt
 .ai/
 ├── README.md                     # AI context entrypoint
-├── architecture-rules.md         # Architectural constraints and invariants
-├── coding-standards.md           # Coding and formatting expectations
-├── implementation-patterns.md    # Reusable implementation patterns
-├── testing-patterns.md           # Shared testing principles and verification selection
-├── domain-boundaries.md          # Boundary philosophy and repository-level ownership
-├── task-workflow.md              # Task decomposition and execution workflow
-└── prompt-templates.md           # Reusable prompt templates
-```
-
-Enforced policy scripts live in `.ai/hooks/` (see `AGENTS.md → Agent Mechanisms`):
-
-```txt
-.ai/hooks/
-├── guard-git.sh              # Blocks main-branch commits, force-push, staged secret/env files
-├── guard-pr-body.sh          # Blocks PR creation unless the body follows .github/pull_request_template.md
+├── guidelines/
+│   ├── architecture.md           # Architectural constraints, boundaries, and patterns
+│   ├── standards.md              # Coding, formatting, and testing expectations
+│   ├── workflow.md               # Task decomposition and execution workflow
+│   └── prompt-templates.md       # Reusable prompt templates
+├── hooks/
+│   ├── guard-git.sh              # Blocks main-branch commits, force-push, staged secret/env files
+│   └── guard-pr-body.sh          # Blocks PR creation unless the body follows pull_request_template.md
+├── rules/                        # Domain-specific rules and auto-loading (if applicable)
+├── skills/                       # Agnostic instruction files for standard tasks (e.g. start-task, implement)
 ```
 
 ---

@@ -10,7 +10,7 @@ Prioritize: small and bounded changes, explicit architectural boundaries, determ
 
 ## Primary References
 
-Before making any non-trivial change, read `README.md` and `.ai/task-workflow.md`. This applies whether or not the request uses one of the wrapped prompts in `.ai/prompt-templates.md` — a plain, ad-hoc request ("fix this bug", "add this field") still goes through the task lifecycle in `.ai/task-workflow.md` (scope identification, constraint validation, verification, git workflow). Then load only the task-relevant documentation: see `.ai/README.md → Context Loading Strategy`.
+Before making any non-trivial change, read `README.md` and `.ai/guidelines/workflow.md`. This applies whether or not the request uses one of the wrapped prompts in `.ai/guidelines/prompt-templates.md` — a plain, ad-hoc request ("fix this bug", "add this field") still goes through the task lifecycle in `.ai/guidelines/workflow.md` (scope identification, constraint validation, verification, git workflow). Then load only the task-relevant documentation: see `.ai/README.md → Context Loading Strategy`.
 
 ## Layer Map
 

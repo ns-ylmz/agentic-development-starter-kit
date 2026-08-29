@@ -1,6 +1,6 @@
 # Tooling Conventions
 
-The reasoning behind the tooling setup in this template. The rules agents follow live in `.ai/coding-standards.md`; this document records the philosophy.
+The reasoning behind the tooling setup in this template. The rules agents follow live in `.ai/guidelines/standards.md`; this document records the philosophy.
 
 ## Tech-Stack Agnostic
 
@@ -25,4 +25,4 @@ Set up your module resolution to avoid cross-module aliasing. Each module should
 
 ## Commit Conventions
 
-Use Conventional Commits. The list of approved types is defined in `.ai/task-workflow.md → Agentic Git Collaboration Workflow`. If you configure a tool like `commitlint`, ensure the two lists remain synchronized.
+Use Conventional Commits. The list of approved types is defined in `.ai/guidelines/workflow.md → Agentic Git Collaboration Workflow`. If you configure a tool like `commitlint`, ensure the two lists remain synchronized.

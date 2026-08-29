@@ -1,14 +1,14 @@
 # Testing Foundation
 
-<!-- Fill in when the test tooling is chosen. Keep synchronized with .ai/testing-patterns.md, which owns the principles; this doc owns the concrete tooling and commands. -->
+<!-- Fill in when the test tooling is chosen. Keep synchronized with .ai/guidelines/standards.md, which owns the principles; this doc owns the concrete tooling and commands. -->
 
 ## Test Layers
 
-<!-- Unit / integration / e2e: tools, locations, naming (see .ai/coding-standards.md file-naming table). -->
+<!-- Unit / integration / e2e: tools, locations, naming (see .ai/guidelines/standards.md file-naming table). -->
 
 ## Verification Commands
 
-<!-- The concrete commands behind .ai/testing-patterns.md -> Verification Selection, per workspace. -->
+<!-- The concrete commands behind .ai/guidelines/standards.md -> Verification Selection, per workspace. -->
 
 ## CI Mapping
 

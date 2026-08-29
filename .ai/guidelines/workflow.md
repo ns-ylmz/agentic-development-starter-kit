@@ -1,4 +1,4 @@
-# Task Workflow
+# Workflow
 
 This document defines the standard workflow for AI-assisted task execution inside this repository: bounded implementation scope, deterministic architectural evolution, explicit verification, and minimal drift.
 
@@ -155,7 +155,7 @@ When a pull request has open review comments that need to be fixed:
 
 1. Identify the target PR: the current branch's PR via the git provider, or an explicit PR number the task specifies.
 2. Fetch review comments together with their thread-resolution state from the git provider. Only unresolved threads need action — do not rely on a comment simply existing, since addressed/outdated comments remain visible in the API.
-3. Group unresolved comments by the file path they target, then classify each file by ownership per `.ai/domain-boundaries.md`.
+3. Group unresolved comments by the file path they target, then classify each file by ownership per `.ai/guidelines/architecture.md`.
 4. Delegate comments to the appropriate subagents if the project uses them, or handle them directly.
 5. Run proportional verification for each touched domain per `testing-patterns.md` before considering a comment addressed.
 6. Once verified, commit the fix with a Conventional Commit message and push it to the PR's existing branch. Invoking this workflow is itself the Git workflow completion request for that fix — pushing to the PR's own branch does not need a separate ask, unlike opening a new PR or merging (see the Git Workflow Completion Boundary below, which still governs those).
@@ -216,7 +216,7 @@ Ready-for-execution tasks should have:
 - constraints that preserve architecture boundaries
 - deterministic verification steps
 - completion criteria that can be checked without guessing intent
-- an **Agent Execution Prompt** section at the bottom, using one of the wrappers from `.ai/prompt-templates.md`
+- an **Agent Execution Prompt** section at the bottom, using one of the wrappers from `.ai/guidelines/prompt-templates.md`
 
 When a task is too broad, split it before implementation.
 
@@ -233,7 +233,7 @@ Before review, confirm:
 - verification proportionality: checks match the risk and scope
 - documentation synchronization: related guidance stays consistent
 - architecture boundary preservation: production code and runtime contracts are unchanged unless explicitly scoped
-- markdown consistency: formatting follows `.ai/coding-standards.md`
+- markdown consistency: formatting follows `.ai/guidelines/standards.md`
 
 ---
 

@@ -1,1 +1,0 @@
-../../../.ai/skills/address-pr-feedback/SKILL.md

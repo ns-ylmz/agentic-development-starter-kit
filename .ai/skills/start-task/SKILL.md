@@ -25,7 +25,7 @@ Follow these steps exactly in order:
 
 4.  **Initial Scoping:**
     *   Based on the user's prompt, fill out the `## Objective`, `## Context`, and `## Scope & Boundaries` sections of the newly created markdown file.
-    *   To fill out the boundaries accurately, review `.ai/domain-boundaries.md` and check the directory structure of the project. Specify exactly which directories will be modified and which ones are strictly out of bounds.
+    *   To fill out the boundaries accurately, review `.ai/guidelines/architecture.md` and check the directory structure of the project. Specify exactly which directories will be modified and which ones are strictly out of bounds.
 
 5.  **User Review:**
     *   Present a summary of the drafted task plan to the user.
