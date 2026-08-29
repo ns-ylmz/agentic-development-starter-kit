@@ -1,5 +1,5 @@
 #!/bin/bash
-# Destination in a new project: .claude/hooks/suggest-branch-cleanup.sh
+# Destination in a new project: .ai/hooks/suggest-branch-cleanup.sh
 # Wired from: .claude/settings.json (PostToolUse, matcher: "Bash")
 #
 # NON-BLOCKING. Surfaces context and never fails a tool call.

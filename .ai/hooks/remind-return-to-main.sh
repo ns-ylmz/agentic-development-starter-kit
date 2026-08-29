@@ -1,5 +1,5 @@
 #!/bin/bash
-# Destination in a new project: .claude/hooks/remind-return-to-main.sh
+# Destination in a new project: .ai/hooks/remind-return-to-main.sh
 # Wired from: .claude/settings.json (PostToolUse, matchers: "Bash" and
 # "mcp__.*__pull_request_create" — the regex catches any MCP git provider
 # server, e.g. mcp__GitKraken__pull_request_create,

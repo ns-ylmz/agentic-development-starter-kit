@@ -1,5 +1,5 @@
 #!/bin/bash
-# Destination in a new project: .claude/hooks/post-edit-verify.sh
+# Destination in a new project: .ai/hooks/post-edit-verify.sh
 # Wired from: .claude/settings.json (PostToolUse, matcher: "Write|Edit")
 #
 # Runs eslint on the file just touched and feeds the result back into

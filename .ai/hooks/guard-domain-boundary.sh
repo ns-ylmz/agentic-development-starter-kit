@@ -1,5 +1,5 @@
 #!/bin/bash
-# Destination in a new project: .claude/hooks/guard-domain-boundary.sh
+# Destination in a new project: .ai/hooks/guard-domain-boundary.sh
 # Wired from: .claude/settings.json (PreToolUse, matcher: Edit|Write|MultiEdit).
 #
 # Turns the domain-boundary docs (.ai/*-domain-boundaries.md) from

@@ -67,7 +67,7 @@ Keep reusable workflow guidance in its canonical layer. Avoid duplicating the sa
 - `.ai/implementation-patterns.md` owns reusable architectural structure and execution patterns.
 - `planning/` owns bounded task plans, the task-plan template, and the archive lifecycle — see `planning/README.md`.
 - `docs/` owns architecture reasoning and reference documentation; `docs/decisions/` owns ADRs — settled decisions are read from there, not re-litigated. `docs/06-repo-settings.md` owns the server-side repo settings the hooks assume.
-- `.claude/hooks/` owns the implementation of enforced project policy (git guardrails, post-edit verification, PR body template enforcement, domain-boundary enforcement), wired through `.claude/settings.json`. Personal habits that aren't project policy use a `*.local.sh` suffix, are gitignored, and are wired through `.claude/settings.local.json` instead — see `CLAUDE.md → Claude Code Mechanisms`.
+- `.ai/hooks/` owns the implementation of enforced project policy (git guardrails, post-edit verification, PR body template enforcement, domain-boundary enforcement), wired through `.claude/settings.json`. Personal habits that aren't project policy use a `*.local.sh` suffix, are gitignored, and are wired through `.claude/settings.local.json` instead — see `CLAUDE.md → Claude Code Mechanisms`.
 
 ---
 
@@ -90,10 +90,10 @@ Keep reusable workflow guidance in its canonical layer. Avoid duplicating the sa
 └── prompt-templates.md           # Reusable prompt templates
 ```
 
-Enforced policy scripts live in `.claude/hooks/` (see `CLAUDE.md → Claude Code Mechanisms`):
+Enforced policy scripts live in `.ai/hooks/` (see `CLAUDE.md → Claude Code Mechanisms`):
 
 ```txt
-.claude/hooks/
+.ai/hooks/
 ├── guard-git.sh              # Blocks main-branch commits, force-push, staged secret/env files
 ├── guard-pr-body.sh          # Blocks PR creation unless the body follows .github/pull_request_template.md
 ├── guard-domain-boundary.sh  # Blocks implementer subagents from editing the other domain's files

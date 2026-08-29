@@ -1,5 +1,5 @@
 #!/bin/bash
-# Destination in a new project: .claude/hooks/guard-pr-body.sh
+# Destination in a new project: .ai/hooks/guard-pr-body.sh
 # Wired from: .claude/settings.json (PreToolUse, matchers: "Bash" and
 # "mcp__.*__pull_request_create" — the regex catches any MCP git provider
 # server, e.g. mcp__GitKraken__pull_request_create,

@@ -1,6 +1,6 @@
 name: CI
 
-# Server-side counterpart of the local .claude/hooks/ guardrails. Local hooks
+# Server-side counterpart of the local .ai/hooks/ guardrails. Local hooks
 # guide the agent during the session; this workflow is the enforcement the
 # team can rely on, since local hooks can be bypassed.
 #
@@ -72,7 +72,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Same rule as .claude/hooks/guard-pr-body.sh, enforced server-side:
+      # Same rule as .ai/hooks/guard-pr-body.sh, enforced server-side:
       # the PR body must contain every ## section from the template.
       - name: Check PR body against pull_request_template.md
         env:

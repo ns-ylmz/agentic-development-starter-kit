@@ -1,5 +1,5 @@
 #!/bin/bash
-# Destination in a new project: .claude/hooks/guard-git.sh
+# Destination in a new project: .ai/hooks/guard-git.sh
 # Wired from: .claude/settings.json (PreToolUse, matcher: "Bash")
 #
 # Default git guardrails (plain bash + jq):
