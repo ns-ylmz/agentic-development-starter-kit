@@ -15,35 +15,35 @@ This kit uses a hierarchical knowledge base (`.ai/`) and thin configuration wrap
 ## Repository Structure
 
 ```txt
-.ai/                      # The Single Source of Truth
-├── README.md             # Entry point for agentic workflows
-├── task-workflow.md      # Task lifecycle + agentic git collaboration workflow
-├── architecture-rules.md # Architectural invariants
-├── coding-standards.md   # Naming, styling, and markdown conventions
-├── implementation-patterns.md
-├── domain-boundaries.md  # Core vs Application boundary rules
-├── testing-patterns.md   # Principles of verifiable behavior
-└── prompt-templates.md   # Reusable Context/Task/Constraints prompt formats
-.agents/                  # Antigravity (agy) specific hook/skill wiring
-.claude/                  # Claude Code specific hook/skill wiring
+.ai/                            # The Single Source of Truth
+├── README.md                   # Entry point for agentic workflows
+├── guidelines/                 # Core knowledge base
+│   ├── architecture.md         # Boundaries, invariants, and implementation patterns
+│   ├── standards.md            # Coding, naming, testing, and markdown conventions
+│   ├── workflow.md             # Task lifecycle and git collaboration workflow
+│   └── prompt-templates.md     # Reusable Context/Task/Constraints prompts
+├── hooks/                      # Enforced policy scripts (guardrails)
+└── skills/                     # Engine-agnostic agent instructions (e.g. start-task, implement)
+.agents/                        # Antigravity (agy) specific wiring (symlinks to .ai)
+.claude/                        # Claude Code specific wiring (symlinks to .ai)
 .github/
-├── pull_request_template.md      # Enforced by guard-pr-body.sh
-└── workflows/ci.yml              # Generic CI validation placeholder
-planning/                 # Bounded task plans: templates/task-plan.md, active/, archive/
-docs/                     # Architecture doc skeletons (01-06 numbered)
+├── pull_request_template.md    # Enforced by guard-pr-body.sh
+└── workflows/ci.yml            # Generic CI validation placeholder
+planning/                       # Bounded task plans: templates/task-plan.md, active/, archive/
+docs/                           # Architecture doc skeletons (01-06 numbered)
 ```
 
 ## Getting Started
 
 1. Drop this template into a new directory.
 2. Initialize your tech stack (`npm init`, `cargo init`, `go mod init`, `python -m venv`, etc.).
-3. Configure your testing and linting tools. (Optional: install `pre-commit` hooks via `pre-commit install`) Update `.github/workflows/ci.yml` accordingly.
-4. Adapt `.ai/domain-boundaries.md` to your project's architecture.
+3. Configure your testing and linting tools. (Optional: install `pre-commit` hooks via `pre-commit install`). Update `.github/workflows/ci.yml` accordingly.
+4. Adapt `.ai/guidelines/architecture.md` to your project's structure.
 5. If using an AI agent (like Antigravity / `agy`), point it to `AGENTS.md` or `.ai/README.md`.
 
 ## Key Mechanisms
 
-- **Modularity**: Knowledge is split into small files (`coding-standards.md`, `architecture-rules.md`). Agents load only what they need.
+- **Modularity**: Knowledge is logically grouped (`architecture.md`, `standards.md`, `workflow.md`). Agents load only what they need.
 - **Enforcement via Environment**: Instead of telling an LLM "don't commit to main", `.agents/hooks.json` points to bash scripts that strictly block invalid tool calls.
-- **Task Focus**: Use `planning/` for explicit task scoping before implementation.
+- **Task Focus**: Use `planning/` for explicit task scoping before implementation (`start-task` skill automates this).
 - **Agnostic**: Works for any language (Python, JS/TS, Go, Rust) and any architecture (Monolithic, Microservices).

@@ -6,7 +6,7 @@
 
 ## Required Context
 
-- .ai/task-workflow.md
+- .ai/guidelines/workflow.md
 - <smallest relevant .ai/* and docs/* files>
 
 ## Affected Areas
@@ -32,4 +32,4 @@
 
 ## Agent Execution Prompt
 
-<Use the Compact or Controlled Task Execution Prompt from .ai/prompt-templates.md, pointing at this file.>
+<Use the Compact or Controlled Task Execution Prompt from .ai/guidelines/prompt-templates.md, pointing at this file.>

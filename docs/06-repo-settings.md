@@ -1,6 +1,6 @@
 # Repository Settings
 
-The local hooks and `.ai/task-workflow.md` assume these server-side settings. Apply them when creating the repository — they are the part of the policy that cannot ship as files.
+The local hooks and `.ai/guidelines/workflow.md` assume these server-side settings. Apply them when creating the repository — they are the part of the policy that cannot ship as files.
 
 ## Branch Protection (`main`)
 
@@ -11,7 +11,7 @@ The local hooks and `.ai/task-workflow.md` assume these server-side settings. Ap
 
 ## Merge Strategy
 
-- Squash-and-merge only. The PR title becomes the squash commit message, so PR titles must follow Conventional Commits (commitlint's `type-enum`). This is also what makes merged-branch detection reliable (see `.ai/task-workflow.md → Agentic Git Collaboration Workflow`).
+- Squash-and-merge only. The PR title becomes the squash commit message, so PR titles must follow Conventional Commits (commitlint's `type-enum`). This is also what makes merged-branch detection reliable (see `.ai/guidelines/workflow.md → Agentic Git Collaboration Workflow`).
 
 ## Housekeeping
 

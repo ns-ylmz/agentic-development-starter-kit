@@ -42,7 +42,7 @@ Use this template before implementation tasks. For detailed context loading guid
 
 ```txt
 Required:
-- .ai/task-workflow.md
+- .ai/guidelines/workflow.md
 
 Task-specific:
 - <smallest relevant .ai/* document>
@@ -63,14 +63,11 @@ Use for any implementation task. Load the relevant domain-boundaries file if app
 ```txt
 Read:
 
-- .ai/task-workflow.md
-- .ai/architecture-rules.md
-- .ai/coding-standards.md
+- .ai/guidelines/workflow.md
+- .ai/guidelines/architecture.md
+- .ai/guidelines/standards.md
 - the relevant architecture docs for the affected area (if the project has docs/)
 
-Optional (add only if the task crosses domain/service ownership):
-- the domain's .ai/*-domain-boundaries.md file
-- .ai/implementation-patterns.md
 
 Task:
 <implementation task>
@@ -103,9 +100,8 @@ Output:
 ```txt
 Read:
 
-- .ai/architecture-rules.md
-- .ai/implementation-patterns.md
-- .ai/coding-standards.md
+- .ai/guidelines/architecture.md
+- .ai/guidelines/standards.md
 - relevant architecture docs
 
 Task:
@@ -133,11 +129,8 @@ Verification:
 ```txt
 Read:
 
-- .ai/testing-patterns.md
+- .ai/guidelines/standards.md
 
-Optional (add the file matching the target area):
-- .ai/backend-testing-patterns.md
-- .ai/frontend-testing-patterns.md
 
 Task:
 Add or update tests for <target behavior>.
@@ -171,7 +164,6 @@ Requirements:
 - keep README concise
 - place implementation reasoning inside docs/
 - place operational workflow guidance inside .ai/
-- preserve existing formatting conventions
 ```
 
 ---
@@ -230,10 +222,10 @@ Prefer the compact wrapper for routine execution. Use the controlled wrapper whe
 ```txt
 Execute <path/to/task-file.md>.
 
-Follow `.ai/task-workflow.md` (AGENTS.md is already in context).
+Follow `.ai/guidelines/workflow.md` (AGENTS.md is already in context).
 The task file is authoritative. Keep scope bounded, and complete its verification.
 
-For Git workflow steps (branching, committing, PR creation), see `.ai/task-workflow.md → Agentic Git Collaboration Workflow`.
+For Git workflow steps (branching, committing, PR creation), see `.ai/guidelines/workflow.md → Agentic Git Collaboration Workflow`.
 When creating a PR, you MUST read `.github/pull_request_template.md` and use its exact structure for the PR body.
 
 Report the changed files and verification results.
@@ -246,7 +238,7 @@ Execute:
 
 <path/to/task-file.md>
 
-Follow `.ai/task-workflow.md` (AGENTS.md is already in context).
+Follow `.ai/guidelines/workflow.md` (AGENTS.md is already in context).
 
 Treat the task file as the authoritative source for scope, constraints, affected areas, verification, and completion criteria.
 
@@ -258,7 +250,7 @@ Do not expand scope or perform unrelated refactors.
 
 Run all verification required by the task.
 
-For Git workflow steps (branching, committing, PR creation), see `.ai/task-workflow.md → Agentic Git Collaboration Workflow`.
+For Git workflow steps (branching, committing, PR creation), see `.ai/guidelines/workflow.md → Agentic Git Collaboration Workflow`.
 When creating a PR, you MUST read `.github/pull_request_template.md` and use its exact structure for the PR body.
 
 Report:
@@ -275,9 +267,7 @@ Read:
 
 - README.md
 - relevant architecture docs
-- .ai/architecture-rules.md
-- .ai/domain-boundaries.md
-- the side-specific .ai/*-domain-boundaries.md file(s) the review touches
+- .ai/guidelines/architecture.md
 
 Task:
 Review <target implementation or proposal>.
@@ -301,7 +291,7 @@ Output:
 
 ## AI Review Checklist
 
-For the standard review checklist, see `.ai/task-workflow.md → Final Review`.
+For the standard review checklist, see `.ai/guidelines/workflow.md → Final Review`.
 
 ---
 
