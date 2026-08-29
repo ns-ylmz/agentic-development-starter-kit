@@ -10,6 +10,5 @@ Follow `.ai/prompt-templates.md → Implementation Prompt` exactly:
 3. Apply the domain-specific constraint lines from the template that match the affected domain.
 4. Structure the task using that template's Constraints, Affected Areas, Verification, and Output sections.
 
-In a monorepo, prefer delegating to the `backend-implementer`/`frontend-implementer` subagents when the boundary should be enforced rather than just followed.
 
 Do not restate the template here — `.ai/prompt-templates.md` is the single source of truth. If the template changes, this skill picks it up automatically on next read.

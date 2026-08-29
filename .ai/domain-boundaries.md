@@ -19,41 +19,22 @@ Layers should collaborate through orchestration, shared runtime contracts, and e
 
 ## Repository-Level Boundaries
 
-Default monorepo layout (adjust to the project's actual structure; single-app projects keep only the relevant parts):
+Projects should establish clear boundaries between different conceptual layers. When adapting this template to your project, define the boundaries that make sense for your architecture (e.g., core domain vs infrastructure, or client vs server).
 
-### `apps/`
+### Application Layer
 
-Application workspaces own runtime orchestration (e.g. backend API, frontend web application). Applications coordinate runtime behavior but should avoid duplicating shared contracts.
+The application layer owns runtime orchestration. It coordinates runtime behavior but should avoid housing core business rules or duplicated contracts.
 
-### `packages/`
+### Core / Shared Layer
 
-Packages own reusable cross-workspace capabilities (runtime-safe shared contracts, shared UI components). Packages should remain reusable, environment-agnostic, and orchestration-independent.
+The core layer owns reusable capabilities, business logic, and shared contracts. It should remain environment-agnostic and orchestration-independent.
 
-### Workspace Isolation
+### Isolation
 
-Workspaces never reach into each other's internals:
+Layers should avoid reaching into each other's internals:
 
-- no imports from another workspace's `src/`
-- no path aliases resolving into another workspace (see `architecture-rules.md → Module Resolution & Alias Rules`)
-- cross-workspace collaboration goes only through a shared package's public entrypoint, declared as a workspace dependency
-
----
-
-## Shared Runtime Contract Boundaries
-
-Shared runtime contracts are centralized in the canonical shared module (`packages/shared` in a monorepo). For rules governing shared contracts, see `architecture-rules.md → Runtime Contract Rules`.
-
----
-
-## Backend, Frontend, and Shared Domain Boundaries
-
-Side-specific ownership boundaries live in dedicated files so agents load only the one relevant to the task:
-
-- `.ai/backend-domain-boundaries.md`
-- `.ai/frontend-domain-boundaries.md`
-- `.ai/shared-domain-boundaries.md`
-
-The sections above apply to all three.
+- No circular dependencies between layers.
+- Interaction between boundaries must happen through explicitly defined public entrypoints (e.g., interfaces, facades, or API boundaries).
 
 ---
 
@@ -74,10 +55,6 @@ For documentation standards, see `coding-standards.md → Documentation Standard
 Avoid:
 
 - duplicating runtime contracts
-- embedding orchestration into UI components
-- coupling frontend directly to backend implementation details
-- importing or aliasing across workspace boundaries
-- mixing transport and orchestration behavior
-- placing infrastructure logic inside orchestration services
+- embedding orchestration into UI or infrastructure components
+- bypassing explicit layer interfaces
 - creating hidden cross-domain dependencies
-- bypassing shared runtime contracts

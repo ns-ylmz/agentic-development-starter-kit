@@ -1,12 +1,3 @@
-# Dependencies
-node_modules/
-
-# Build
-build/
-dist/
-.turbo/
-*.tsbuildinfo
-
 # Logs
 *.log
 
@@ -15,33 +6,20 @@ dist/
 .env.*
 !.env.example
 
-# Coverage
-coverage/
-
 # OS
 .DS_Store
 
-# Husky internals
-.husky/_
+# IDEs
+.vscode/
+.idea/
 
-# ESLint
-.eslintcache
-
-# VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-
-# Claude Code
-# Per-user local overrides.
-.claude/settings.local.json
-CLAUDE.local.md
-
-# Gemini / Antigravity
-# Per-user local overrides.
+# Agent Configurations
+# Per-user local overrides and personal instructions
 .agents/hooks.local.json
 GEMINI.local.md
-
-# Shared Agent Memory
-# Personal memory rules for AI agents (do not commit user-specific instructions)
 MEMORY.local.md
+AGENTS.local.md
+
+# Claude Code
+.claude/settings.local.json
+CLAUDE.local.md

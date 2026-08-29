@@ -58,7 +58,7 @@ Prompts should avoid repeating broad context lists when a task-specific context 
 
 ## Implementation Prompt
 
-Use for any implementation task. In a monorepo, the domain determines the Optional boundary file: backend → `.ai/backend-domain-boundaries.md`, frontend → `.ai/frontend-domain-boundaries.md`, shared package → `.ai/shared-domain-boundaries.md`.
+Use for any implementation task. Load the relevant domain-boundaries file if applicable.
 
 ```txt
 Read:
@@ -230,7 +230,7 @@ Prefer the compact wrapper for routine execution. Use the controlled wrapper whe
 ```txt
 Execute <path/to/task-file.md>.
 
-Follow `.ai/task-workflow.md` (CLAUDE.md is already in context).
+Follow `.ai/task-workflow.md` (AGENTS.md is already in context).
 The task file is authoritative. Keep scope bounded, and complete its verification.
 
 For Git workflow steps (branching, committing, PR creation), see `.ai/task-workflow.md → Agentic Git Collaboration Workflow`.
@@ -246,7 +246,7 @@ Execute:
 
 <path/to/task-file.md>
 
-Follow `.ai/task-workflow.md` (CLAUDE.md is already in context).
+Follow `.ai/task-workflow.md` (AGENTS.md is already in context).
 
 Treat the task file as the authoritative source for scope, constraints, affected areas, verification, and completion criteria.
 

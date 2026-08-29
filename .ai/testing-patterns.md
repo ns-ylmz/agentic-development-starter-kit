@@ -29,7 +29,7 @@ small scoped verification
 → before full repository validation
 ```
 
-Examples (monorepo):
+Examples:
 
 ```bash
 npm run test --workspace backend
@@ -49,7 +49,7 @@ Use repository-wide verification only when changes affect:
 
 Choose verification by affected area and risk. Prefer the smallest deterministic verification set that proves the task outcome.
 
-- **Documentation-only tasks**: command-based formatting checks (`git diff --check`, `npx prettier --check`) plus manual boundary checks.
+- **Documentation-only tasks**: command-based formatting checks (`git diff --check`, `<linter-command> --check`) plus manual boundary checks.
 - **Tooling tasks**: verify the changed tool or script directly before broad repository verification.
 - **Frontend tasks**: smallest relevant frontend test, lint, or typecheck command covering the affected area.
 - **Backend tasks**: smallest relevant backend unit or integration test command covering the affected orchestration or service behavior.
@@ -90,7 +90,7 @@ Shared package tests should validate:
 Default placement:
 
 ```txt
-packages/shared/test/
+core/test/
 ```
 
 ---
