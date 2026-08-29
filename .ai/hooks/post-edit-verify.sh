@@ -1,6 +1,6 @@
 #!/bin/bash
 # Destination in a new project: .ai/hooks/post-edit-verify.sh
-# Wired from: .claude/settings.json (PostToolUse, matcher: "Write|Edit")
+# Wired from: agent tool configs (PostToolUse, matcher: "Write|Edit")
 #
 # Runs eslint on the file just touched and feeds the result back into
 # context as additionalContext. Non-blocking by design: surfaces issues
@@ -23,7 +23,7 @@ esac
 
 [ -f "$FILE" ] || exit 0
 
-LINT_OUTPUT=$(cd "${CLAUDE_PROJECT_DIR}" && npx --no-install eslint --no-error-on-unmatched-pattern "$FILE" 2>&1 || true)
+LINT_OUTPUT=$(cd "." && npx --no-install eslint --no-error-on-unmatched-pattern "$FILE" 2>&1 || true)
 
 if [ -n "$LINT_OUTPUT" ]; then
   jq -n --arg ctx "$LINT_OUTPUT" '{

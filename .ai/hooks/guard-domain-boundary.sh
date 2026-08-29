@@ -1,10 +1,10 @@
 #!/bin/bash
 # Destination in a new project: .ai/hooks/guard-domain-boundary.sh
-# Wired from: .claude/settings.json (PreToolUse, matcher: Edit|Write|MultiEdit).
+# Wired from: agent tool configs (PreToolUse, matcher: Edit|Write|MultiEdit).
 #
 # Turns the domain-boundary docs (.ai/*-domain-boundaries.md) from
 # prompt-level guidance into an enforced invariant for domain-scoped
-# implementer subagents (.claude/agents/): an implementer subagent is denied
+# implementer subagents (.ai/agents/): an implementer subagent is denied
 # any Edit/Write/MultiEdit under path fragments it does not own.
 #
 # The boundary map below is the only project-specific part. Each line is:

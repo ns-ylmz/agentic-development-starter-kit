@@ -4,13 +4,13 @@
       {
         "matcher": "run_command",
         "hooks": [
-          { "type": "command", "command": "../.ai/hooks/guard-git.sh" },
-          { "type": "command", "command": "../.ai/hooks/guard-pr-body.sh" }
+          { "type": "command", "command": ".ai/hooks/guard-git.sh" },
+          { "type": "command", "command": ".ai/hooks/guard-pr-body.sh" }
         ]
       },
       {
         "matcher": "mcp_.*pull_request_create",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/guard-pr-body.sh" }]
+        "hooks": [{ "type": "command", "command": ".ai/hooks/guard-pr-body.sh" }]
       }
     ]
   },
@@ -18,7 +18,7 @@
     "PreToolUse": [
       {
         "matcher": "replace_file_content|write_to_file",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/guard-domain-boundary.sh" }]
+        "hooks": [{ "type": "command", "command": ".ai/hooks/guard-domain-boundary.sh" }]
       }
     ]
   },
@@ -26,7 +26,7 @@
     "PostToolUse": [
       {
         "matcher": "replace_file_content|write_to_file",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/post-edit-verify.sh" }]
+        "hooks": [{ "type": "command", "command": ".ai/hooks/post-edit-verify.sh" }]
       }
     ]
   },
@@ -34,7 +34,7 @@
     "PostToolUse": [
       {
         "matcher": "run_command",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/suggest-branch-cleanup.sh" }]
+        "hooks": [{ "type": "command", "command": ".ai/hooks/suggest-branch-cleanup.sh" }]
       }
     ]
   },
@@ -42,7 +42,7 @@
     "PostToolUse": [
       {
         "matcher": "mcp_.*pull_request_create",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/remind-return-to-main.sh" }]
+        "hooks": [{ "type": "command", "command": ".ai/hooks/remind-return-to-main.sh" }]
       }
     ]
   }

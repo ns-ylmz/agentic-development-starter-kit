@@ -1,6 +1,6 @@
 #!/bin/bash
 # Destination in a new project: .ai/hooks/guard-git.sh
-# Wired from: .claude/settings.json (PreToolUse, matcher: "Bash")
+# Wired from: agent tool configs (PreToolUse, matcher: "Bash")
 #
 # Default git guardrails (plain bash + jq):
 #   - no direct commits to main/master

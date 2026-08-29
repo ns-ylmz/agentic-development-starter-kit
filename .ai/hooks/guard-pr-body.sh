@@ -1,6 +1,6 @@
 #!/bin/bash
 # Destination in a new project: .ai/hooks/guard-pr-body.sh
-# Wired from: .claude/settings.json (PreToolUse, matchers: "Bash" and
+# Wired from: agent tool configs (PreToolUse, matchers: "Bash" and
 # "mcp__.*__pull_request_create" — the regex catches any MCP git provider
 # server, e.g. mcp__GitKraken__pull_request_create,
 # mcp__github__create_pull_request).
@@ -25,7 +25,7 @@
 set -euo pipefail
 
 INPUT=$(cat)
-PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
+PROJECT_DIR="."
 TEMPLATE="$PROJECT_DIR/.github/pull_request_template.md"
 
 # No template in this project: nothing to enforce.
