@@ -1,24 +1,36 @@
 # Agentic Development Starter Kit
 
-A framework-agnostic, tech-stack-agnostic, and agent-agnostic starter kit for building projects with Agentic AI.
+A **framework-agnostic**, **tech-stack-agnostic**, and **agent-agnostic** starter template for AI-assisted development (Agentic Coding).
 
-## Philosophy
+## Why this exists
 
-This template shifts from "putting all rules in the LLM context" to "distributing rules into the environment and modular structures". By relying on the environment and targeted contexts, it improves **Context Loading** (better LLM focus) and **Cost Management** (fewer tokens used).
+AI agents (like Claude Code, Cursor, Antigravity) are powerful, but they work best when they have clear boundaries, explicit architectures, and predictable workflows. This repository provides a baseline contract for agent-human collaboration. It answers:
 
-## Directory Structure
+- "Where should the AI look for rules?"
+- "How should the AI structure tasks and git branches?"
+- "How do we prevent the AI from making sweeping, unverified changes?"
+
+This kit uses a hierarchical knowledge base (`.ai/`) and thin configuration wrappers (`.agents/`, `.claude/`) to ensure any tool can follow the exact same working agreement.
+
+## Repository Structure
 
 ```txt
-.agents/                  # Agent-specific tool hooks and configurations (e.g. Antigravity)
-.ai/                      # The canonical knowledge layer: rules, standards, patterns
-  ├── README.md           # Entrypoint for agents to understand context loading
-  ├── skills/             # On-demand, specialized agent workflows
-  ├── rules/              # Path-scoped, conditionally loaded rules
-  ├── agents/             # Subagents with isolated contexts
-  └── hooks/              # Bash scripts for policy enforcement (e.g., git guardrails)
-planning/                 # Bounded task plans (template + active/archive lifecycle)
-docs/                     # Architecture documentation and ADRs
-.github/                  # Agnostic CI and PR templates
+.ai/                      # The Single Source of Truth
+├── README.md             # Entry point for agentic workflows
+├── task-workflow.md      # Task lifecycle + agentic git collaboration workflow
+├── architecture-rules.md # Architectural invariants
+├── coding-standards.md   # Naming, styling, and markdown conventions
+├── implementation-patterns.md
+├── domain-boundaries.md  # Core vs Application boundary rules
+├── testing-patterns.md   # Principles of verifiable behavior
+└── prompt-templates.md   # Reusable Context/Task/Constraints prompt formats
+.agents/                  # Antigravity (agy) specific hook/skill wiring
+.claude/                  # Claude Code specific hook/skill wiring
+.github/
+├── pull_request_template.md      # Enforced by guard-pr-body.sh
+└── workflows/ci.yml              # Generic CI validation placeholder
+planning/                 # Bounded task plans: templates/task-plan.md, active/, archive/
+docs/                     # Architecture doc skeletons (01-06 numbered)
 ```
 
 ## Getting Started

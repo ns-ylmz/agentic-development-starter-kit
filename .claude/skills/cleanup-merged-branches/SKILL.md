@@ -1,1 +1,0 @@
-../../../.ai/skills/cleanup-merged-branches/SKILL.md
