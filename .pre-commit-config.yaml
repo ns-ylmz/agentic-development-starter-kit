@@ -1,0 +1,22 @@
+# Generic language-agnostic pre-commit configuration.
+# To use:
+# 1. Install pre-commit (e.g., `pip install pre-commit` or `brew install pre-commit`)
+# 2. Run `pre-commit install --hook-type pre-commit --hook-type commit-msg`
+# 3. Add your tech-stack specific hooks below (e.g. ruff, eslint, gofmt, etc.)
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  # Enforce Conventional Commits (equivalent to commitlint)
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.1.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [build, chore, ci, docs, feat, fix, perf, planning, refactor, revert, style, test]

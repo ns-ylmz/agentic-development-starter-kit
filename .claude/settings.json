@@ -25,29 +25,9 @@
             "args": []
           }
         ]
-      },
-      {
-        "matcher": "Edit|Write|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".ai/hooks/guard-domain-boundary.sh",
-            "args": []
-          }
-        ]
       }
     ],
     "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".ai/hooks/post-edit-verify.sh",
-            "args": []
-          }
-        ]
-      },
       {
         "matcher": "Bash",
         "hooks": [
@@ -76,6 +56,6 @@
     ]
   },
   "permissions": {
-    "allow": ["Bash(git fetch *)", "Bash(git merge-base *)", "Bash(npx prettier --check *)"]
+    "allow": ["Bash(git fetch *)", "Bash(git merge-base *)"]
   }
 }

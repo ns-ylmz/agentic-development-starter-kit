@@ -4,11 +4,8 @@ name: CI
 # guide the agent during the session; this workflow is the enforcement the
 # team can rely on, since local hooks can be bypassed.
 #
-# Stack-agnostic by design: every step uses `--if-present`, so projects
-# without a given script simply skip that step. The kit itself defines only
-# lint/format:check (it ships no TypeScript source), so typecheck/test/build
-# skip until a project adds them — see docs/04-tooling-conventions.md.
-# Adjust the Node version and package manager per project.
+# Stack-agnostic by design. Adjust this workflow to include the lint,
+# typecheck, test, and build steps relevant to your tech stack.
 
 on:
   pull_request:
@@ -22,50 +19,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint --if-present
-
-      - name: Typecheck
-        run: npm run typecheck --if-present
-
-      - name: Test
-        run: npm run test --if-present
-
-      - name: Build
-        run: npm run build --if-present
-
-      - name: Format check
-        run: npm run format:check --if-present
-
-  commitlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Validate PR commits against commitlint.config.mjs
-        run: |
-          npx --no -- commitlint \
-            --from ${{ github.event.pull_request.base.sha }} \
-            --to ${{ github.event.pull_request.head.sha }} \
-            --verbose
+      - name: Placeholder CI Step
+        run: echo "Configure your CI verification steps here (lint, test, build)"
 
   pr-template:
     runs-on: ubuntu-latest

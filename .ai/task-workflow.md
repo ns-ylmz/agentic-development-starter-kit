@@ -6,7 +6,7 @@ This document defines the standard workflow for AI-assisted task execution insid
 
 ## Core Principles
 
-Claude should follow the core principles defined in `CLAUDE.md`. Key task-specific principles: prefer small isolated tasks, reuse existing patterns, validate assumptions before introducing abstractions.
+The agent should follow the core principles defined in `AGENTS.md`. Key task-specific principles: prefer small isolated tasks, reuse existing patterns, validate assumptions before introducing abstractions.
 
 ---
 
@@ -57,7 +57,7 @@ Before implementation, verify the constraints in your task domain remain valid. 
 
 ### 4. Implementation Rules
 
-During implementation, follow coding and architectural constraints. See `coding-standards.md` for naming conventions, TypeScript rules, shared contract rules, refactoring discipline, and testing expectations.
+During implementation, follow coding and architectural constraints. See `coding-standards.md` for naming conventions, typing rules, shared contract rules, refactoring discipline, and testing expectations.
 
 ### 5. Verification
 
@@ -155,8 +155,8 @@ When a pull request has open review comments that need to be fixed:
 
 1. Identify the target PR: the current branch's PR via the git provider, or an explicit PR number the task specifies.
 2. Fetch review comments together with their thread-resolution state from the git provider. Only unresolved threads need action — do not rely on a comment simply existing, since addressed/outdated comments remain visible in the API.
-3. Group unresolved comments by the file path they target, then classify each file by ownership per `.ai/domain-boundaries.md`. In the default monorepo layout: `apps/backend/**` → backend, `apps/frontend/**` → frontend, `packages/shared/**` → shared, anything else (docs, root config) → handle directly, no delegation.
-4. Delegate backend-domain comments to the `backend-implementer` subagent and frontend-domain comments to the `frontend-implementer` subagent (where those subagents exist), one call per domain, passing each comment's file, line, and body as task context. This reuses the same enforced boundary (`guard-domain-boundary.sh`) as regular implementation work. Handle shared and cross-cutting comments directly in the main conversation.
+3. Group unresolved comments by the file path they target, then classify each file by ownership per `.ai/domain-boundaries.md`.
+4. Delegate comments to the appropriate subagents if the project uses them, or handle them directly.
 5. Run proportional verification for each touched domain per `testing-patterns.md` before considering a comment addressed.
 6. Once verified, commit the fix with a Conventional Commit message and push it to the PR's existing branch. Invoking this workflow is itself the Git workflow completion request for that fix — pushing to the PR's own branch does not need a separate ask, unlike opening a new PR or merging (see the Git Workflow Completion Boundary below, which still governs those).
 7. For each addressed thread, reply on the git provider referencing the fix (e.g. the commit SHA) and mark the thread resolved. Leave a thread unresolved and unreplied whenever a comment couldn't be confidently addressed (ambiguous, out of scope, or already stale) — report the reason instead of forcing a resolution.

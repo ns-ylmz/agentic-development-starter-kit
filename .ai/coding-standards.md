@@ -1,6 +1,6 @@
 # Coding Standards
 
-This document defines coding expectations for AI-assisted implementation inside this repository: consistent, predictable, minimally abstracted code aligned with the project architecture. TypeScript is the default ecosystem; the principles apply to any stack.
+This document defines coding expectations for AI-assisted implementation inside this repository: consistent, predictable, minimally abstracted code aligned with the project architecture. The principles apply to any stack.
 
 ---
 
@@ -59,19 +59,17 @@ Inspect neighboring files before introducing a filename. Preserve the establishe
 
 Default patterns (adjust per project, then keep this table synchronized):
 
-| File responsibility                                           | Naming convention                                           | Examples                                       |
-| ------------------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------- |
-| UI components and providers (framework of choice, e.g. React) | `PascalCase.tsx`                                            | `DetailView.tsx`, `ToastProvider.tsx`          |
-| UI hooks/composables                                          | `camelCase.ts` with the ecosystem prefix (e.g. `use`)       | `useAuthMutations.ts`                          |
-| Backend TypeScript files                                      | `kebab-case` with a responsibility suffix                   | `auth-token.service.ts`, `users.controller.ts` |
-| Schemas and DTOs                                              | `kebab-case` with a responsibility suffix                   | `user.schema.ts`, `login.dto.ts`               |
-| Shared contract files                                         | `kebab-case` with a role suffix where useful                | `auth-response.types.ts`                       |
-| Unit tests                                                    | source naming plus `.spec.ts` or `.test.tsx`                | `users.service.spec.ts`, `DetailView.test.tsx` |
-| Backend integration tests                                     | `<domain>.<capability>.int-spec.ts`                         | `users.create.int-spec.ts`                     |
-| Page route directories                                        | `kebab-case`, with `index.tsx` as the route entry           | `forgot-password/index.tsx`                    |
-| Barrel files                                                  | `index.ts`                                                  | `features/auth/index.ts`                       |
-| Markdown docs                                                 | `kebab-case.md`; preserve numeric prefixes for ordered docs | `10-platform-architecture.md`                  |
-| Config files                                                  | ecosystem-required names, with an explicit module extension | `eslint.config.mjs`, `vitest.config.ts`        |
+| File responsibility                                 | Naming convention                                           | Examples                                       |
+| --------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------- |
+| UI components and views                             | `PascalCase` with extension                                 | `DetailView.tsx`, `ToastProvider.swift`        |
+| Logic hooks or composables                          | `camelCase` or language convention                          | `useAuthMutations.ts`, `auth_hooks.py`         |
+| Backend source files                                | `kebab-case` or `snake_case` per language                   | `auth_token_service.py`, `users_controller.go` |
+| Schemas and DTOs                                    | noun-based with responsibility suffix                       | `user.schema.ts`, `login_dto.rs`               |
+| Shared contract files                               | descriptive with role suffix                                | `auth_response_types.py`                       |
+| Unit tests                                          | source naming plus test suffix                              | `users_service_test.go`, `DetailView.test.tsx` |
+| Integration tests                                   | domain and capability                                       | `users_create_integration_test.py`             |
+| Markdown docs                                       | `kebab-case.md`; preserve numeric prefixes                  | `10-platform-architecture.md`                  |
+| Config files                                        | ecosystem-required names                                    | `Makefile`, `pytest.ini`, `Cargo.toml`         |
 
 ---
 
@@ -83,7 +81,7 @@ Do not change module formats unless the change is explicitly part of the task.
 
 ---
 
-## TypeScript Rules
+## Typing Rules
 
 Prefer:
 
@@ -102,13 +100,13 @@ Avoid:
 - over-wide union types without clear purpose
 - aliases that resolve into another workspace's source
 
-When creating shared values, prefer const-based runtime contracts over TypeScript enums.
+When creating shared values, prefer const-based runtime contracts over language-specific enums that lack runtime representation.
 
 ---
 
 ## Formatting & Linting
 
-Formatting is owned by Prettier (`.prettierrc`) and linting by ESLint — both enforced via lint-staged on commit. Agents should never hand-format against these tools or debate style covered by them.
+Formatting and linting are handled by project-specific tools (e.g., Prettier, ESLint, Ruff, gofmt, Black). Agents should follow the project tooling and never debate style covered by them.
 
 ---
 

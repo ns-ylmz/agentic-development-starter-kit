@@ -1,8 +1,8 @@
 # AGENTS.md
 
-This repository is a working agreement for agentic development — a coding-standard contract for individuals and teams. TypeScript is a precondition, not a suggestion: the root `package.json` pins the TypeScript/ESLint/Prettier/commitlint baseline that the commit hooks, the post-edit lint feedback, and CI all depend on. Above that line the stack stays open — frontend framework, backend framework, database, and testing tools are project choices. The repository shape defaults to a monorepo but the layers below carry over to any shape.
+This repository is a working agreement for agentic development — a coding-standard contract for individuals and teams. The technology stack is agnostic: this repo acts as a baseline template for AI-assisted development for any framework or language.
 
-This file stays lean on purpose. Detailed knowledge lives in `.ai/` (reference documents) and agent-specific mechanisms live in their respective configuration folders (e.g., `.claude/` for Claude Code). When adding guidance, put the content in `.ai/` and reference it — don't grow this file.
+This file stays lean on purpose. Detailed knowledge lives in `.ai/` (reference documents) and agent-specific mechanisms live in their respective configuration folders (e.g., `.agents/` for Antigravity, or `.claude/` for Claude Code). When adding guidance, put the content in `.ai/` and reference it — don't grow this file.
 
 ## Core Principles
 

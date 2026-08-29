@@ -14,22 +14,6 @@
       }
     ]
   },
-  "guard-domain-boundary": {
-    "PreToolUse": [
-      {
-        "matcher": "replace_file_content|write_to_file",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/guard-domain-boundary.sh" }]
-      }
-    ]
-  },
-  "post-edit-verify": {
-    "PostToolUse": [
-      {
-        "matcher": "replace_file_content|write_to_file",
-        "hooks": [{ "type": "command", "command": "../.ai/hooks/post-edit-verify.sh" }]
-      }
-    ]
-  },
   "suggest-branch-cleanup": {
     "PostToolUse": [
       {

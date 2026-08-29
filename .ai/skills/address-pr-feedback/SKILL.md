@@ -7,7 +7,7 @@ Follow `.ai/task-workflow.md → Agentic Git Collaboration Workflow → Addressi
 
 1. Identify the target PR: the current branch's PR via the git provider, or an explicit PR number the user gave.
 2. Fetch review comments together with their thread-resolution state from the git provider. Only unresolved threads need action.
-3. Classify each unresolved comment's file by `.ai/domain-boundaries.md` ownership (default monorepo layout: `apps/backend/**`, `apps/frontend/**`, `packages/shared/**`, or other).
+3. Classify each unresolved comment's file by `.ai/domain-boundaries.md` ownership.
 4. Delegate backend comments to the `backend-implementer` subagent and frontend comments to the `frontend-implementer` subagent — one call per domain, batching that domain's comments together. Handle shared-package and cross-cutting comments (docs, root config) directly in this conversation, following the `implement` skill or whichever skill matches the affected area.
 5. Run proportional verification per `.ai/testing-patterns.md` for each touched domain.
 6. Once verified, commit the fix and push it to the PR's existing branch — no separate ask needed for this push, since closing the loop on the PR is this workflow's whole point.

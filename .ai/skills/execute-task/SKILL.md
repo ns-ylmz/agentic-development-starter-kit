@@ -9,7 +9,7 @@ Use the **Compact Task Execution Prompt** for routine execution. Use the **Contr
 
 In both cases:
 
-1. Follow `.ai/task-workflow.md` (CLAUDE.md is already in context).
+1. Follow `.ai/task-workflow.md` (AGENTS.md is already in context).
 2. Treat the task file as authoritative for scope, constraints, affected areas, verification, and completion criteria. Keep changes strictly bounded to it — no scope expansion, no unrelated refactors.
 3. Run all verification the task requires.
 4. For branching, committing, and PR creation, follow `.ai/task-workflow.md → Agentic Git Collaboration Workflow`. When creating a PR, read `.github/pull_request_template.md` and use its exact structure.
