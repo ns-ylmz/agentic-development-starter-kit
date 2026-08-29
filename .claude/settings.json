@@ -26,36 +26,6 @@
           }
         ]
       }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".ai/hooks/suggest-branch-cleanup.sh",
-            "args": []
-          },
-          {
-            "type": "command",
-            "command": ".ai/hooks/remind-return-to-main.sh",
-            "args": []
-          }
-        ]
-      },
-      {
-        "matcher": "mcp__.*__pull_request_create",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".ai/hooks/remind-return-to-main.sh",
-            "args": []
-          }
-        ]
-      }
     ]
-  },
-  "permissions": {
-    "allow": ["Bash(git fetch *)", "Bash(git merge-base *)"]
   }
 }
