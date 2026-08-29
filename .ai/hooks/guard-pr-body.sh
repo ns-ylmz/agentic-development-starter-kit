@@ -25,8 +25,7 @@
 set -euo pipefail
 
 INPUT=$(cat)
-PROJECT_DIR="."
-TEMPLATE="$PROJECT_DIR/.github/pull_request_template.md"
+TEMPLATE=".github/pull_request_template.md"
 
 # No template in this project: nothing to enforce.
 [ -f "$TEMPLATE" ] || exit 0
@@ -71,7 +70,7 @@ if [ -n "$COMMAND" ]; then
   if [ -n "$BODY_FILE" ]; then
     case "$BODY_FILE" in
       /*) BODY_FILE_PATH="$BODY_FILE" ;;
-      *) BODY_FILE_PATH="$PROJECT_DIR/$BODY_FILE" ;;
+      *) BODY_FILE_PATH="$BODY_FILE" ;;
     esac
     if [ ! -f "$BODY_FILE_PATH" ]; then
       deny "gh pr create --body-file points at a file that doesn't exist yet (${BODY_FILE}). Write the PR body file first."
