@@ -6,12 +6,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-git.sh",
+            "command": ".ai/hooks/guard-git.sh",
             "args": []
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-pr-body.sh",
+            "command": ".ai/hooks/guard-pr-body.sh",
             "args": []
           }
         ]
@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-pr-body.sh",
+            "command": ".ai/hooks/guard-pr-body.sh",
             "args": []
           }
         ]
@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-domain-boundary.sh",
+            "command": ".ai/hooks/guard-domain-boundary.sh",
             "args": []
           }
         ]
@@ -43,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/post-edit-verify.sh",
+            "command": ".ai/hooks/post-edit-verify.sh",
             "args": []
           }
         ]
@@ -53,12 +53,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/suggest-branch-cleanup.sh",
+            "command": ".ai/hooks/suggest-branch-cleanup.sh",
             "args": []
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/remind-return-to-main.sh",
+            "command": ".ai/hooks/remind-return-to-main.sh",
             "args": []
           }
         ]
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/remind-return-to-main.sh",
+            "command": ".ai/hooks/remind-return-to-main.sh",
             "args": []
           }
         ]

@@ -6,7 +6,7 @@
 
 ## Context
 
-The same policies (no direct commits to `main`, no force-push, no committed secrets, PR bodies following the template, verified code) can be enforced in two places: locally during a Claude Code session via `.claude/hooks/`, or server-side via `.github/workflows/ci.yml` plus repository settings (`docs/06-repo-settings.md`). Since CI and branch protection already enforce these rules remotely, the question arose whether the local hooks are redundant.
+The same policies (no direct commits to `main`, no force-push, no committed secrets, PR bodies following the template, verified code) can be enforced in two places: locally during a Claude Code session via `.ai/hooks/`, or server-side via `.github/workflows/ci.yml` plus repository settings (`docs/06-repo-settings.md`). Since CI and branch protection already enforce these rules remotely, the question arose whether the local hooks are redundant.
 
 ## Decision
 
@@ -20,5 +20,5 @@ Keep both layers. Session hooks are the fast-feedback layer that steers the agen
 ## Consequences
 
 - One rule intentionally exists twice: the PR-body template check (`guard-pr-body.sh` and the CI `pr-template` job). Both read the required headers dynamically from `.github/pull_request_template.md`, so the single source of truth is the template file and the duplication carries no maintenance cost.
-- New policies should follow the same pattern: implement the in-session guard in `.claude/hooks/` when early feedback helps the agent, and add the server-side counterpart to CI or repository settings when the rule must hold for every contributor.
+- New policies should follow the same pattern: implement the in-session guard in `.ai/hooks/` when early feedback helps the agent, and add the server-side counterpart to CI or repository settings when the rule must hold for every contributor.
 - Local hooks may be treated as advisory during development, but CI status checks remain required for merging (see `docs/06-repo-settings.md → Branch Protection`).

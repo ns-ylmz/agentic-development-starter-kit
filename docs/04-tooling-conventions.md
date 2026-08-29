@@ -20,7 +20,7 @@ This is what makes the kit self-verifying rather than aspirational: every script
 
 `eslint.config.mjs` is a framework-free flat-config base (JS + TypeScript recommended, Prettier as an ESLint rule). Workspaces extend it and add their own framework plugins; the base stays framework-free so a React choice never leaks into backend linting.
 
-Prettier runs as an ESLint rule rather than a separate pass so format drift surfaces through the same channel as lint errors — which is what lets `.claude/hooks/post-edit-verify.sh` report formatting problems to the agent immediately after each edit.
+Prettier runs as an ESLint rule rather than a separate pass so format drift surfaces through the same channel as lint errors — which is what lets `.ai/hooks/post-edit-verify.sh` report formatting problems to the agent immediately after each edit.
 
 Enforcement runs at three levels, deliberately redundant because the first two are bypassable:
 

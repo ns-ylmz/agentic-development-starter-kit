@@ -33,8 +33,15 @@ coverage/
 !.vscode/extensions.json
 
 # Claude Code
-# Per-user local overrides. Claude Code reads this alongside the shared
-# .claude/settings.json and it takes precedence, so it's the escape hatch for
-# machine-specific settings that must not become project policy. The shared
-# .claude/settings.json is committed; this one never is.
+# Per-user local overrides.
 .claude/settings.local.json
+CLAUDE.local.md
+
+# Gemini / Antigravity
+# Per-user local overrides.
+.agents/hooks.local.json
+GEMINI.local.md
+
+# Shared Agent Memory
+# Personal memory rules for AI agents (do not commit user-specific instructions)
+MEMORY.local.md
